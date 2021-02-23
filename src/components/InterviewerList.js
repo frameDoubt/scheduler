@@ -9,7 +9,7 @@ export default function InterviewerList(props) {
     "interviewers--selected": props.interviewer
   })
   
-  const mappedInterviewers = props.interviewers.map((interviewer, index) => {
+  const mappedInterviewers = props.interviewers.map((interviewer) => {
     
     const selected = props.interviewer === interviewer.id;
 
