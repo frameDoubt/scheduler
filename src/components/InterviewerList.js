@@ -2,7 +2,7 @@ import React from 'react';
 import classnames from "classnames"
 import InterviewerListItem from 'components/InterviewerListItem';
 import "components/InterviewerList.scss";
-import { action } from '@storybook/addon-actions/dist/preview';
+// import { action } from '@storybook/addon-actions/dist/preview';
 
 export default function InterviewerList(props) {
   const listClass = classnames("interviewers", {

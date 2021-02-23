@@ -149,4 +149,8 @@ storiesOf("Appointment", module)
                         onEdit={action("onEdit")}
                         onDelete={action("onDelete")}
                       />))
-  .add("Confirm", () => <Confirm onConfirm={action("onConfirm")} onCancel={action("onCancel")} />);
+  .add("Confirm", () => (<Confirm
+                          message="Delete the Appointment"
+                          onConfirm={action("onConfirm")}
+                          onCancel={action("onCancel")}
+                        />));
