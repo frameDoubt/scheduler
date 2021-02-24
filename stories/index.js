@@ -161,9 +161,17 @@ storiesOf("Appointment", module)
                           message="Deleting"
                         />))
   .add("Error", () => <Error message="Could not delete appointment" onClose={action("onClose")} />)
-  .add("Form as Edit", () => (<Form onSubmit={action("onSubmit")}>
-                                <InterviewerList
-                                  interviewers = {interviewers}
-                                />
-                              </Form>)
-                             );
+  .add("Form as Edit", () => (<Form
+                                onSubmit={action("onSubmit")}
+                                interviewers={interviewers}
+                                name='Naem'
+                                interviewer={3}
+                                onSave={action("onSave")}
+                                onCancel={action("onCancel")}
+                             />))
+  .add("Form as Create", () => (<Form
+                                  onSubmit={action("onSubmit")}
+                                  interviewers={interviewers}
+                                  onSave={action("onSave")}
+                                  onCancel={action("onCancel")}
+                              />));
