@@ -166,10 +166,14 @@ const appointments = [
       student: "Jessica Jones",
       interviewer: {
         id: 5,
-        name: "Sylvia Palmer",
-        avatar: "https://i.imgur.com/LpaY82x.png",
+        name: "Sven Jones",
+        avatar: "https://i.imgur.com/twYrpay.jpg",
       }
     }
+  },
+  {
+    id: 5,
+    time: "5pm",
   }
 ];
 
