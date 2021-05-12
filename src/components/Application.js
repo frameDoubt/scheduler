@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 import "components/Application.scss";
 import DayList from 'components/DayList';
@@ -63,8 +64,8 @@ const days = [
 
 export default function Application() {
   const [day, setDay] = useState("Monday");
+  
   const mappedAppt = appointments.map((appt) => {
-    console.log("app appt:", appt)
     return (
       <Appointment
         {... appt}
