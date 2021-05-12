@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 import "components/Application.scss";
@@ -44,26 +44,17 @@ const appointments = [
   }
 ];
 
-const days = [
-  {
-    id: 1,
-    name: "Monday",
-    spots: 2,
-  },
-  {
-    id: 2,
-    name: "Tuesday",
-    spots: 5,
-  },
-  {
-    id: 3,
-    name: "Wednesday",
-    spots: 0,
-  },
-];
 
 export default function Application() {
-  const [day, setDay] = useState("Monday");
+  const [days, setDays] = useState([]);
+
+  useEffect(() => {
+    axios.get('/api/days')
+      .then((res) => {
+        console.log(res.data);
+        setDays(res.data); 
+      })
+  }, [])
   
   const mappedAppt = appointments.map((appt) => {
     return (
@@ -77,6 +68,7 @@ export default function Application() {
       />
     );
   });
+
   return (
     <main className="layout">
       <section className="sidebar">
@@ -90,8 +82,6 @@ export default function Application() {
         <nav className="sidebar__menu">
           <DayList
             days = {days}
-            day = {day}
-            setDay = {setDay}
            />
         </nav>
         <img
