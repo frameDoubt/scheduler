@@ -5,7 +5,7 @@ import Empty from "components/Appointment/Empty";
 import Header from "components/Appointment/Header";
 
 export default function Appointment(props) {
-  console.log("passed props:",props)
+  // console.log("passed props:",props)
   return (
     <article className="appointment">
       <Header time={props.time} />

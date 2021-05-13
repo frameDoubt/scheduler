@@ -46,33 +46,40 @@ const appointments = [
 
 
 export default function Application() {
-  const [days, setDays] = useState([]);
-
+  // const [days, setDays] = useState([]);
+  const [state, setState] = useState({
+    day: "Monday",
+    days: [],
+    appointments: {}
+  });
+  
   useEffect(() => {
     axios.get('/api/days')
-      .then((res) => {
-        console.log(res.data);
-        setDays(res.data); 
-      })
-  }, [])
+    .then((res) => {
+      // console.log(res.data);
+      setDays(res.data);
+    })
+  },[]);
   
+  const setDays = days => setState({...state, days})
+  const setDay = day => setState({ ...state, day });
+
   const mappedAppt = appointments.map((appt) => {
     return (
       <Appointment
-        {... appt}
-        // interview={appt.interview}
-        // time={appt.time}
-        student={appt || null}
-        interviewer={appt || null}
-        key={appt.id}
+      {... appt}
+      // interview={appt.interview}
+      // time={appt.time}
+      student={appt || null}
+      interviewer={appt || null}
+      key={appt.id}
       />
-    );
-  });
-
+      );
+    });
+    
   return (
     <main className="layout">
       <section className="sidebar">
-        {/* Replace this with the sidebar elements during the "Project Setup & Familiarity" activity. */}
         <img 
           className="sidebar--centered"
           src="images/logo.png"
@@ -81,7 +88,9 @@ export default function Application() {
         <hr className="sidebar__seperator sidebar--centered" />
         <nav className="sidebar__menu">
           <DayList
-            days = {days}
+            days = {state.days}
+            day = {state.day}
+            setDay = {setDay}
            />
         </nav>
         <img
