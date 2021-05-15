@@ -36,18 +36,19 @@ export function getInterviewersForDay(state, day) {
   const filteredDays = state.days.filter((days) => {
     return days.name === day;
   });
-  console.log(filteredDays);
-  const returnedApptArray = [];
+  // console.log(filteredDays[0].interviewers);
+  const returnedInterviewersArray = [];
   if(filteredDays.length > 0) {
-    filteredDays[0].appointments.forEach((item) => {
-    for(let value in state.appointments) {
-      if(value === item.toString()) {
-        returnedApptArray.push(state.appointments[value]);
-      }
+    for(let value in state.interviewers) {
+      filteredDays[0].interviewers.forEach((item) => {
+        if(value === item.toString()) {
+          returnedInterviewersArray.push(state.interviewers[value]);
+        }
+      });
     }
-    });
   }
-  return returnedApptArray;
+  // console.log(returnedInterviewersArray);
+  return returnedInterviewersArray;
 };
 
 export default { getAppointmentsForDay, getInterview, getInterviewersForDay };
