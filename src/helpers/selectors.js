@@ -21,7 +21,7 @@ export function getAppointmentsForDay(state, day) {
 //selector function returns reformatted object with given state and interview object
 export function getInterview(state, interview) {
   const returnObj = {};
-  //if interview object has value
+  //if interview object has value, reformats given object
   if(interview) {
     returnObj.student = interview.student;
     returnObj.interviewer = {

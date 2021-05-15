@@ -53,8 +53,7 @@ export default function Application() {
     ]
   });
 
-  const dailyAppointments = getAppointmentsForDay(state, state.day);
-  
+  //hook used to get data from proxy server
   useEffect(() => {
     Promise.all([
       axios.get('/api/days'),
@@ -64,10 +63,21 @@ export default function Application() {
       const [days, appts, interviewers] = all;
       setState(prev => ({ ...prev, days: days.data, appointments: appts.data, interviewers: interviewers.data }));
     });
-  }, [])
+  }, []);
 
-  //function passed to component
+  const dailyAppointments = getAppointmentsForDay(state, state.day);
+  //function passed to DayList component to state.day with given day param
   const setDay = day => setState({ ...state, day });
+
+  function bookInterview(id, interview) {
+    console.log(`idparam: ${id},interviewparam: ${interview}`);
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+  }
+
+  // console.log("This is state from the application component:", state);
 
   const mappedAppt = dailyAppointments.map((appt) => {
 
@@ -81,6 +91,8 @@ export default function Application() {
         interview={interview || null}
         time={appt.time}
         key={appt.id}
+        bookInterview={bookInterview}
+        appointmentId={appt.id}
       />
       );
     });
