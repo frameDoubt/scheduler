@@ -7,8 +7,6 @@ import Form from './Form';
 
 import useVisualMode from "hooks/useVisualMode";
 
-import { getInterviewersForDay } from "helpers/selectors";
-
 export default function Appointment(props) {
   const EMPTY = "EMPTY";
   const SHOW = "SHOW";
