@@ -7,7 +7,6 @@ import Appointment from 'components/Appointment/index.js';
 
 import { getAppointmentsForDay, getInterview } from "helpers/selectors"
 
-
 export default function Application() {
 
   const [state, setState] = useState({
@@ -63,8 +62,6 @@ export default function Application() {
       axios.get('/api/interviewers'),
     ]).then((all) => {
       const [days, appts, interviewers] = all;
-      // console.log(interviewers.data);
-      // console.log(days.data, appts.data, interviewers.data);
       setState(prev => ({ ...prev, days: days.data, appointments: appts.data, interviewers: interviewers.data }));
     });
   }, [])
@@ -73,7 +70,6 @@ export default function Application() {
   const setDay = day => setState({ ...state, day });
 
   const mappedAppt = dailyAppointments.map((appt) => {
-    // console.log(state, appt.interview);
 
     const interview = getInterview(state, appt.interview);
 
