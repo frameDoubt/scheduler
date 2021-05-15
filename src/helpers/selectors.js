@@ -36,6 +36,7 @@ export function getInterviewersForDay(state, day) {
   const filteredDays = state.days.filter((days) => {
     return days.name === day;
   });
+  console.log(filteredDays);
   const returnedApptArray = [];
   if(filteredDays.length > 0) {
     filteredDays[0].appointments.forEach((item) => {
