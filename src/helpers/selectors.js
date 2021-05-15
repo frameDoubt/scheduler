@@ -36,7 +36,6 @@ export function getInterviewersForDay(state, day) {
   const filteredDays = state.days.filter((days) => {
     return days.name === day;
   });
-  // console.log(filteredDays[0].interviewers);
   const returnedInterviewersArray = [];
   if(filteredDays.length > 0) {
     for(let value in state.interviewers) {
@@ -47,7 +46,6 @@ export function getInterviewersForDay(state, day) {
       });
     }
   }
-  // console.log(returnedInterviewersArray);
   return returnedInterviewersArray;
 };
 
