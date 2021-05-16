@@ -70,11 +70,19 @@ export default function Application() {
   const setDay = day => setState({ ...state, day });
 
   function bookInterview(id, interview) {
-    console.log(`idparam: ${id},interviewparam: ${interview}`);
+    console.log(`idparam: ${id}, interviewparamkeys: ${Object.keys(interview)}`);
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview }
     };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+    setState({
+      ...state,
+      appointments
+    });
   }
 
   // console.log("This is state from the application component:", state);

@@ -21,6 +21,7 @@ export default function Appointment(props) {
       interviewer
     };
     props.bookInterview(props.appointmentId, interview);
+    transition(SHOW);
   };
   // console.log(prop.bookInterview);
   // const todaysInterviewers = getInterviewersForDay(props.state, props.state.day);
