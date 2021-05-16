@@ -21,12 +21,11 @@ export default function Form(props) {
     setInterviewer(null);
     props.onCancel();
   }
-  const save = function () {
-    // console.log(props);
+  const save = function() {
     props.onSave(value, interviewer);
-    // props.onConfirm();
+
   }
-  // console.log(props.onSave, props.interviewers);
+
   return (
     <main className="appointment__card appointment__card--create">
       <section className="appointment__card-left">
