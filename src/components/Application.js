@@ -70,7 +70,7 @@ export default function Application() {
   const setDay = day => setState({ ...state, day });
 
   function bookInterview(id, interview) {
-    console.log(`idparam: ${id}, interviewparamkeys: ${Object.keys(interview)}`);
+    // console.log(`idparam: ${id}, interviewparamkeys: ${Object.keys(interview)}`);
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview }
@@ -83,12 +83,20 @@ export default function Application() {
       ...state,
       appointments
     });
+    // axios.put(`/api/appointments/${id}`, interview)
+    //   .then((response) => {
+    //     console.log(response);
+    //   });
+    // console.log(id, interview);
+    return axios.put(`/api/appointments/${id}`, {interview})
+      // .then(response => console.log(response.data, "... it was a great success."))
+      .catch(err => console.log(err))
   }
 
   // console.log("This is state from the application component:", state);
 
   const mappedAppt = dailyAppointments.map((appt) => {
-
+    // console.log(appt.interview)
     const interview = getInterview(state, appt.interview);
     const todaysInterviewers = getInterviewersForDay(state, state.day);
 
