@@ -68,9 +68,8 @@ export default function Application() {
   const dailyAppointments = getAppointmentsForDay(state, state.day);
   //function passed to DayList component to state.day with given day param
   const setDay = day => setState({ ...state, day });
-
+  
   function bookInterview(id, interview) {
-    // console.log(`idparam: ${id}, interviewparamkeys: ${Object.keys(interview)}`);
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview }
@@ -83,17 +82,23 @@ export default function Application() {
       ...state,
       appointments
     });
-    // axios.put(`/api/appointments/${id}`, interview)
-    //   .then((response) => {
-    //     console.log(response);
-    //   });
-    // console.log(id, interview);
     return axios.put(`/api/appointments/${id}`, {interview})
-      // .then(response => console.log(response.data, "... it was a great success."))
       .catch(err => console.log(err))
   }
 
-  // console.log("This is state from the application component:", state);
+  function cancelInterview(id) {
+    console.log("cancelInterview idParam:", id);
+    const appointment = {
+      ...state.appointments[id],
+      interview: null
+    };
+    setState({
+      ...state,
+      appointment
+    });
+    return axios.delete(`/api/appointments/${id}`)
+      .catch(err => console.log(err))
+  }
 
   const mappedAppt = dailyAppointments.map((appt) => {
     // console.log(appt.interview)
@@ -108,7 +113,9 @@ export default function Application() {
         time={appt.time}
         key={appt.id}
         bookInterview={bookInterview}
+        cancelInterview={cancelInterview}
         appointmentId={appt.id}
+        day={state.day}
       />
       );
     });
