@@ -83,7 +83,6 @@ export default function Application() {
       appointments
     });
     return axios.put(`/api/appointments/${id}`, {interview})
-      .catch(err => console.log(err))
   }
 
   function cancelInterview(id) {
@@ -97,7 +96,6 @@ export default function Application() {
       appointment
     });
     return axios.delete(`/api/appointments/${id}`)
-      .catch(err => console.log(err))
   }
 
   const mappedAppt = dailyAppointments.map((appt) => {

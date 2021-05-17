@@ -5,6 +5,7 @@ import Empty from "components/Appointment/Empty";
 import Header from "components/Appointment/Header";
 import Status from "components/Appointment/Status";
 import Confirm from "components/Appointment/Confirm";
+import Error from "components/Appointment/Error";
 import Form from './Form';
 
 import useVisualMode from "hooks/useVisualMode";
@@ -17,6 +18,8 @@ export default function Appointment(props) {
   const DELETING = "DELETING";
   const CONFIRM = "CONFIRM";
   const EDIT = "EDIT";
+  const ERROR_SAVE = "ERROR_SAVE";
+  const ERROR_DELETE = "ERROR_DELETE";
 
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
@@ -31,7 +34,10 @@ export default function Appointment(props) {
         .then(() => {
           transition(SHOW);
         })
-        transition(SAVING);
+        .catch(() => {
+          transition(ERROR_SAVE, true);
+        })
+      transition(SAVING, true);
     } else {
       console.log("you haven't selected an interviewer");
     }
@@ -45,8 +51,12 @@ export default function Appointment(props) {
       .then(() => {
         transition(EMPTY);
       })
-      transition(DELETING);
+      .catch((error => transition(ERROR_DELETE, true)))
+      transition(DELETING, true);
   };
+  function close() {
+    back();
+  }
   // console.log(Object.keys(props));
   // console.log(props.interview ? props.interview : false);
   return (
@@ -59,6 +69,8 @@ export default function Appointment(props) {
       {mode === DELETING && <Status message={"Deleting"} />}
       {mode === CREATE && <Form interviewers={props.interviewers} onCancel={() => {back()}} onSave={save} />}
       {mode === EDIT && <Form interviewers={props.interviewers} name={props.interview.student} interviewer={props.interview.interviewer.id} onCancel={() => {back()}} onSave={save} />}
+      {mode === ERROR_DELETE && <Error message={"There was a problem cancelling your interview."} onClose={() => {close()}} />}
+      {mode === ERROR_SAVE && <Error message={"There was a problem saving your interview."} onClose={() => {close()}} />}
     </article>
   );
 }
