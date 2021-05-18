@@ -124,6 +124,6 @@ export default function UseApplicationData (props) {
   // console.log(`These are sync state keys: ${Object.keys(state)}`);
   // console.log(`Is state.days an array: ${ Array.isArray(state.days) }`);
   // console.log(`This is state.days keys: ${Object.keys(state.days)}`);
-  console.log(`This is state:`, state);
+  // console.log(`This is state:`, state);
   return { state, setState, setDay, bookInterview, cancelInterview };
 }

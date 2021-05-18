@@ -19,7 +19,7 @@ export default function Application() {
     const interview = getInterview(state, appt.interview);
 
     const todaysInterviewers = getInterviewersForDay(state, state.day);
-
+    
     return (
       <Appointment
         interviewers={todaysInterviewers}

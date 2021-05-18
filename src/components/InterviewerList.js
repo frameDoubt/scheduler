@@ -1,10 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classnames from "classnames"
 import InterviewerListItem from 'components/InterviewerListItem';
 import "components/InterviewerList.scss";
 // import { action } from '@storybook/addon-actions/dist/preview';
 
-export default function InterviewerList(props) {
+function InterviewerList(props) {
   const listClass = classnames("interviewers", {
     "interviewers--selected": props.interviewer
   })
@@ -34,3 +35,9 @@ export default function InterviewerList(props) {
     </section>
   );
 }
+
+InterviewerList.propTypes = {
+  inteviewers: PropTypes.array.isRequired
+}
+
+export default InterviewerList;
