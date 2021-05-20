@@ -5,45 +5,46 @@ export default function UseApplicationData (props) {
   const [state, setState] = useState({
     day: "Monday",
     days: [],
-    // appointments:
-    // [
-    //   {
-    //     id: 1,
-    //     time: "12pm"
-    //   },
-    //   {
-    //     id: 2,
-    //     time: "1pm",
-    //     interview: {
-    //       student: "Lydia Miller-Jones",
-    //       interviewer: {
-    //         id: 1,
-    //         name: "Sylvia Palmer",
-    //         avatar: "https://i.imgur.com/LpaY82x.png"
-    //       }
-    //     }
-    //   },
-    //   {
-    //     id: 3,
-    //     time: "2pm"
-    //   },
-    //   {
-    //     id: 4,
-    //     time: "3pm",
-    //     interview: {
-    //       student: "Jessica Jones",
-    //       interviewer: {
-    //         id: 5,
-    //         name: "Sven Jones",
-    //         avatar: "https://i.imgur.com/twYrpay.jpg"
-    //       }
-    //     }
-    //   },
-    //   {
-    //     id: 5,
-    //     time: "4pm"
-    //   }
-    // ]
+    appointments:
+    [
+      {
+        id: 1,
+        time: "12pm"
+      },
+      {
+        id: 2,
+        time: "1pm",
+        interview: {
+          student: "Lydia Miller-Jones",
+          interviewer: {
+            id: 1,
+            name: "Sylvia Palmer",
+            avatar: "https://i.imgur.com/LpaY82x.png"
+          }
+        }
+      },
+      {
+        id: 3,
+        time: "2pm"
+      },
+      {
+        id: 4,
+        time: "3pm",
+        interview: {
+          student: "Jessica Jones",
+          interviewer: {
+            id: 5,
+            name: "Sven Jones",
+            avatar: "https://i.imgur.com/twYrpay.jpg"
+          }
+        }
+      },
+      {
+        id: 5,
+        time: "4pm"
+      }
+    ],
+    
   });
 
   const setDay = day => setState((prev) => {return {...prev, day}});
@@ -78,9 +79,9 @@ export default function UseApplicationData (props) {
       ...state.appointments,
       [id]: appointment
     };
-    console.log("Appointments:", appointments);
+    // console.log("Appointments:", appointments);
     const newDaysArr = updateSpots(state.day, state.days, appointments);
-    console.log("newDaysArr:", newDaysArr);
+    // console.log("newDaysArr:", newDaysArr);
     setState((prev) => {
      return { ...prev, appointments, days: newDaysArr}
     })

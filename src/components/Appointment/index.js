@@ -25,7 +25,6 @@ export default function Appointment(props) {
     props.interview ? SHOW : EMPTY
   );
   function save(name, interviewer) {
-    if(interviewer) {
       const interview = {
         student: name,
         interviewer
@@ -38,9 +37,6 @@ export default function Appointment(props) {
           transition(ERROR_SAVE, true);
         })
       transition(SAVING, true);
-    } else {
-      console.log("you haven't selected an interviewer");
-    }
   };
   //this function is for cancelling a booked appointment
   function cancel() {
