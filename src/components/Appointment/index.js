@@ -56,7 +56,7 @@ export default function Appointment(props) {
   // console.log(Object.keys(props));
   // console.log(props.interview ? props.interview : false);
   return (
-    <article className="appointment">
+    <article className="appointment" data-testid="appointment">
       <Header time={props.time} />
       {mode === SHOW && <Show student={props.interview.student} interviewer={props.interview.interviewer.name} onDelete={() => {cancel()}} onEdit={() => {transition(EDIT)}} />}
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
