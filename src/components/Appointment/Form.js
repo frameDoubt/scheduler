@@ -25,6 +25,7 @@ export default function Form(props) {
   // let nameValidation = true;
   const save = function() {
     if(value) {
+      setError("");
       props.onSave(value, interviewer);
     } else {
       setError('Student name cannot be blank');
