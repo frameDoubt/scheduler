@@ -62,10 +62,11 @@ export default function UseApplicationData (props) {
     // console.log(state.days[id].spots);
     const newDaysArr = updateSpots(state.day, state.days, appointments);
 
-    setState((prev) => {
-      return {...prev, appointments, days: newDaysArr}
-    });
-    return axios.put(`/api/appointments/${id}`, {interview})
+    return axios.put(`/api/appointments/${id}`, {interview}).then(() => {
+      setState((prev) => {
+        return {...prev, appointments: {...prev.appointments, [id]: appointments}, days: newDaysArr}
+      });
+    })
   }
 
   function cancelInterview(id) {
@@ -79,14 +80,14 @@ export default function UseApplicationData (props) {
       ...state.appointments,
       [id]: appointment
     };
-    // console.log("Appointments:", appointments);
-    const newDaysArr = updateSpots(state.day, state.days, appointments);
-    // console.log("newDaysArr:", newDaysArr);
-    setState((prev) => {
-     return { ...prev, appointments, days: newDaysArr}
-    })
     
-    return axios.delete(`/api/appointments/${id}`)
+    const newDaysArr = updateSpots(state.day, state.days, appointments);
+    
+    return axios.delete(`/api/appointments/${id}`).then(() => {
+      setState((prev) => {
+       return { ...prev, appointments, days: newDaysArr}
+      });
+    })
   }
 
   function getSpotsForDay(dayObj, appointments) {
@@ -99,7 +100,7 @@ export default function UseApplicationData (props) {
     }
     return spots;
   }
-
+  // setState(updateSpots);
   function updateSpots(dayName, days, appointments) {
     // returns array with object with matching name obj.property
     const dayObj = days.find(day => day.name === dayName);
