@@ -110,7 +110,7 @@ describe("Application", () => {
     // mocks mock data sending fail
     axios.put.mockRejectedValueOnce();
 
-    const { container, debug } = render(<Application />)
+    const { container } = render(<Application />)
 
     await waitForElement(() => getByText(container, "Archie Cohen"))
 
@@ -122,8 +122,22 @@ describe("Application", () => {
 
     await waitForElement(() => getByText(appointment, "There was a problem saving your interview."))
 
-    // expect(getByText(appointment, "There was a problem saving your interview.")).toBeInTheDocument();
-
-    debug();
   });
+
+  it("shows the delete error when failing to save an appointment", async () => {
+    axios.delete.mockRejectedValueOnce();
+
+    const { container, debug } = render(<Application />)
+
+    await waitForElement(() => getByText(container, "Archie Cohen"))
+
+    const appointment = getAllByTestId(container, "appointment").find(appt => queryByText(appt, "Archie Cohen"));
+
+    fireEvent.click(getByAltText(appointment, "Delete"))
+    fireEvent.click(getByText(appointment, "Confirm"))
+
+    await waitForElement(() => getByText(appointment, "There was a problem cancelling your interview."))
+
+  });
+
 });
