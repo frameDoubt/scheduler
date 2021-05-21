@@ -49,25 +49,6 @@ export default function UseApplicationData (props) {
 
   const setDay = day => setState((prev) => {return {...prev, day}});
 
-  // function bookInterview(id, interview) {
-  //   console.log("interview obj inside book interview",interview)
-  //   const appointment = {
-  //     id: id,
-  //     interview: { ...interview },
-  //   };
-  //   console.log("top of bookInterview",state);
-  //   const stateish = {...state.appointments};
-  //   stateish[id] = appointment;
-  //   console.log("line 60",stateish);
-  //   // const newDaysArr = updateSpots(state.day, state.days, state.appointments);
-
-  //   return axios.put(`/api/appointments/${id}`, {interview}).then(() => {
-  //     setState((prev) => {
-  //       return {...prev, appointments: stateish}
-  //     });
-  //   })
-  // }
-
   function bookInterview(id, interview) {
     const appointment = {
       ...state.appointments[id],

@@ -39,24 +39,25 @@ describe("Application", () => {
     // expect(day).toHaveValue("no spots remaining")
     expect(getByText(day, "no spots remaining")).toBeInTheDocument();
 
-    console.log(prettyDOM(day));
-
-    console.log(prettyDOM(appointment));
   }); 
   it("loads data, cancels an interview and increases the spot remaining for Monday by 1", async () => {
     // render Application
-    const { container } = render(<Application />);
+    const { container, debug } = render(<Application />);
     // wait until the text "Archie Cohen" is displayed
     await waitForElement(() => getByText(container, "Archie Cohen"))
+    
     // click the "Delete" button on booked appointment
-    // const appointment = getAllByTestId(container, "appointment").find(appt => queryByText(appt, "Archie Cohen"));
-    // fireEvent.click(getByAltText(appointment, "Delete"));
-
+    const appointment = getAllByTestId(container, "appointment").find(appt => queryByText(appt, "Archie Cohen"));
+    fireEvent.click(getByAltText(appointment, "Delete"));
     // check that the confirmation message is shown
+    expect(getByText(appointment, "Are you sure you want to cancel?")).toBeInTheDocument()
     // click the "Confirm" button on the confirmation
+    fireEvent.click(getByText(appointment, "Confirm"));
     // check that element with text "Deleting" is displayed
+    expect(getByText(appointment, "Deleting")).toBeInTheDocument();
     // wait until the element with the "Add" button is displayed
+    await waitForElement(() => getByAltText(appointment, "Add"))
     // check that the DayListItem with the text "Monday" also has the text "2 spots remaining"
-
+    debug();
   });
 });
