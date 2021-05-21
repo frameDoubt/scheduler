@@ -1,6 +1,6 @@
 import React from "react";
 
-import { render, cleanup, waitForElement, fireEvent, getByText, prettyDOM, getAllByTestId, getByAltText, getByPlaceholderText, waitForElementToBeRemoved } from "@testing-library/react";
+import { render, cleanup, waitForElement, fireEvent, getByText, prettyDOM, getAllByTestId, getByAltText, getByPlaceholderText, waitForElementToBeRemoved, queryByText } from "@testing-library/react";
 
 import Application from "components/Application";
 
@@ -32,11 +32,31 @@ describe("Application", () => {
     fireEvent.click(getByText(appointment, "Save"));
     expect(getByText(appointment, "Saving")).toBeInTheDocument();
 
-    // await waitForElementToBeRemoved(() => appointment, "Saving");
     await waitForElement(() => getByText(appointment, "Lydia Miller-Jones"));
-    // expect(getByText(appointment, "Lydia Miller-Jones")).toBeInTheDocument();
-    
+    const day = getAllByTestId(container, "day").find(day =>
+      queryByText(day, "Monday")
+    );
+    // expect(day).toHaveValue("no spots remaining")
+    expect(getByText(day, "no spots remaining")).toBeInTheDocument();
+
+    console.log(prettyDOM(day));
+
     console.log(prettyDOM(appointment));
   }); 
+  it("loads data, cancels an interview and increases the spot remaining for Monday by 1", async () => {
+    // render Application
+    const { container } = render(<Application />);
+    // wait until the text "Archie Cohen" is displayed
+    await waitForElement(() => getByText(container, "Archie Cohen"))
+    // click the "Delete" button on booked appointment
+    // const appointment = getAllByTestId(container, "appointment").find(appt => queryByText(appt, "Archie Cohen"));
+    // fireEvent.click(getByAltText(appointment, "Delete"));
 
+    // check that the confirmation message is shown
+    // click the "Confirm" button on the confirmation
+    // check that element with text "Deleting" is displayed
+    // wait until the element with the "Add" button is displayed
+    // check that the DayListItem with the text "Monday" also has the text "2 spots remaining"
+
+  });
 });
