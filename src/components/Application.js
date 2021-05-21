@@ -11,7 +11,7 @@ import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "help
 export default function Application() {
   
   const { state, setDay, bookInterview, cancelInterview } = useApplicationData();
-
+  
   const dailyAppointments = getAppointmentsForDay(state, state.day);
 
   const mappedAppt = dailyAppointments.map((appt) => {

@@ -5,49 +5,68 @@ export default function UseApplicationData (props) {
   const [state, setState] = useState({
     day: "Monday",
     days: [],
-    appointments:
-    [
-      {
-        id: 1,
-        time: "12pm"
-      },
-      {
-        id: 2,
-        time: "1pm",
-        interview: {
-          student: "Lydia Miller-Jones",
-          interviewer: {
-            id: 1,
-            name: "Sylvia Palmer",
-            avatar: "https://i.imgur.com/LpaY82x.png"
-          }
-        }
-      },
-      {
-        id: 3,
-        time: "2pm"
-      },
-      {
-        id: 4,
-        time: "3pm",
-        interview: {
-          student: "Jessica Jones",
-          interviewer: {
-            id: 5,
-            name: "Sven Jones",
-            avatar: "https://i.imgur.com/twYrpay.jpg"
-          }
-        }
-      },
-      {
-        id: 5,
-        time: "4pm"
-      }
-    ],
+    // appointments:
+    // [
+    //   {
+    //     id: 1,
+    //     time: "12pm"
+    //   },
+    //   {
+    //     id: 2,
+    //     time: "1pm",
+    //     interview: {
+    //       student: "Lydia Miller-Jones",
+    //       interviewer: {
+    //         id: 1,
+    //         name: "Sylvia Palmer",
+    //         avatar: "https://i.imgur.com/LpaY82x.png"
+    //       }
+    //     }
+    //   },
+    //   {
+    //     id: 3,
+    //     time: "2pm"
+    //   },
+    //   {
+    //     id: 4,
+    //     time: "3pm",
+    //     interview: {
+    //       student: "Jessica Jones",
+    //       interviewer: {
+    //         id: 5,
+    //         name: "Sven Jones",
+    //         avatar: "https://i.imgur.com/twYrpay.jpg"
+    //       }
+    //     }
+    //   },
+    //   {
+    //     id: 5,
+    //     time: "4pm"
+    //   }
+    // ],
     
   });
 
   const setDay = day => setState((prev) => {return {...prev, day}});
+
+  // function bookInterview(id, interview) {
+  //   console.log("interview obj inside book interview",interview)
+  //   const appointment = {
+  //     id: id,
+  //     interview: { ...interview },
+  //   };
+  //   console.log("top of bookInterview",state);
+  //   const stateish = {...state.appointments};
+  //   stateish[id] = appointment;
+  //   console.log("line 60",stateish);
+  //   // const newDaysArr = updateSpots(state.day, state.days, state.appointments);
+
+  //   return axios.put(`/api/appointments/${id}`, {interview}).then(() => {
+  //     setState((prev) => {
+  //       return {...prev, appointments: stateish}
+  //     });
+  //   })
+  // }
 
   function bookInterview(id, interview) {
     const appointment = {
@@ -60,11 +79,11 @@ export default function UseApplicationData (props) {
     };
 
     // console.log(state.days[id].spots);
-    const newDaysArr = updateSpots(state.day, state.days, appointments);
+    const days = updateSpots(appointments, state.days);
 
     return axios.put(`/api/appointments/${id}`, {interview}).then(() => {
       setState((prev) => {
-        return {...prev, appointments: {...prev.appointments, [id]: appointments}, days: newDaysArr}
+        return {...prev, appointments, days}
       });
     })
   }
@@ -80,17 +99,16 @@ export default function UseApplicationData (props) {
       ...state.appointments,
       [id]: appointment
     };
-    
-    const newDaysArr = updateSpots(state.day, state.days, appointments);
+    const days = updateSpots(appointments, state.days);
     
     return axios.delete(`/api/appointments/${id}`).then(() => {
       setState((prev) => {
-       return { ...prev, appointments, days: newDaysArr}
+       return { ...prev, appointments, days}
       });
     })
   }
-
-  function getSpotsForDay(dayObj, appointments) {
+  
+    function getSpotsForDay(dayObj, appointments) {
     let spots = 0;
     for(const id of dayObj.appointments) {
       const appointment = appointments[id];
@@ -100,17 +118,12 @@ export default function UseApplicationData (props) {
     }
     return spots;
   }
+
   // setState(updateSpots);
-  function updateSpots(dayName, days, appointments) {
-    // returns array with object with matching name obj.property
-    const dayObj = days.find(day => day.name === dayName);
-    // store returned value, contains number of appointments, 
-    // that have null value for appointment obj.property
-    const spots = getSpotsForDay(dayObj, appointments);
-    // new object for mapping to state obj
-    const newDay = { ...dayObj, spots }
-    const newDays = days.map(day => day.name === dayName ? newDay : day);
-    return newDays;
+  function updateSpots(appointments, days) {
+    return days.map(day => {
+        return {...day, spots: getSpotsForDay(day, appointments)}
+    })
   }
 
   useEffect(() => {
