@@ -35,11 +35,10 @@ describe("Application", () => {
   
     // Clicks the edit button for the existing appointment
     // had to be forced due to visibility issue
-    cy.get("[alt=Edit]").click({ force: true })
+    cy.get("[alt=Edit]").first().click({ force: true })
 
     // Changes the name and the interviewer
-    cy.get("[data-testid=student-name-input]").clear()
-    cy.get("[data-testid=student-name-input]").type("Lydia Miller-Jones");
+    cy.get("[data-testid=student-name-input]").clear().type("Lydia Miller-Jones");
     cy.get("[alt='Tori Malcolm']").click();
     
     // Clicks the save button
@@ -51,4 +50,14 @@ describe("Application", () => {
     .contains(".appointment__card--show", "Tori Malcolm")
   
   });
+
+  it("should cancel an interview", () => {
+
+    cy.get("[alt=Delete]").first().click({ force: true })
+    cy.get(".appointment__card--confirm").contains("Confirm").click()
+    cy.get("[data-testid=appointment]").contains('Deleting')
+      .should("not.have", "Deleting").should("not.have", "Archie Cohen")
+
+  });
+
 });
