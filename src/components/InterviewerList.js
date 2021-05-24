@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classnames from "classnames"
 import InterviewerListItem from 'components/InterviewerListItem';
 import "components/InterviewerList.scss";
-// import { action } from '@storybook/addon-actions/dist/preview';
+
 
 function InterviewerList(props) {
   const listClass = classnames("interviewers", {

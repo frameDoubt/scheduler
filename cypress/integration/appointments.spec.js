@@ -55,8 +55,11 @@ describe("Application", () => {
 
     cy.get("[alt=Delete]").first().click({ force: true })
     cy.get(".appointment__card--confirm").contains("Confirm").click()
-    cy.get("[data-testid=appointment]").contains('Deleting')
-      .should("not.have", "Deleting").should("not.have", "Archie Cohen")
+    cy.contains("Deleting").should("exist");
+    cy.contains("Deleting").should("not.exist");
+  
+    cy.contains(".appointment__card--show", "Archie Cohen")
+      .should("not.exist");
 
   });
 

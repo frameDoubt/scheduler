@@ -5,45 +5,45 @@ export default function UseApplicationData (props) {
   const [state, setState] = useState({
     day: "Monday",
     days: [],
-    // appointments:
-    // [
-    //   {
-    //     id: 1,
-    //     time: "12pm"
-    //   },
-    //   {
-    //     id: 2,
-    //     time: "1pm",
-    //     interview: {
-    //       student: "Lydia Miller-Jones",
-    //       interviewer: {
-    //         id: 1,
-    //         name: "Sylvia Palmer",
-    //         avatar: "https://i.imgur.com/LpaY82x.png"
-    //       }
-    //     }
-    //   },
-    //   {
-    //     id: 3,
-    //     time: "2pm"
-    //   },
-    //   {
-    //     id: 4,
-    //     time: "3pm",
-    //     interview: {
-    //       student: "Jessica Jones",
-    //       interviewer: {
-    //         id: 5,
-    //         name: "Sven Jones",
-    //         avatar: "https://i.imgur.com/twYrpay.jpg"
-    //       }
-    //     }
-    //   },
-    //   {
-    //     id: 5,
-    //     time: "4pm"
-    //   }
-    // ],
+    appointments:
+    [
+      {
+        id: 1,
+        time: "12pm"
+      },
+      {
+        id: 2,
+        time: "1pm",
+        interview: {
+          student: "Lydia Miller-Jones",
+          interviewer: {
+            id: 1,
+            name: "Sylvia Palmer",
+            avatar: "https://i.imgur.com/LpaY82x.png"
+          }
+        }
+      },
+      {
+        id: 3,
+        time: "2pm"
+      },
+      {
+        id: 4,
+        time: "3pm",
+        interview: {
+          student: "Jessica Jones",
+          interviewer: {
+            id: 5,
+            name: "Sven Jones",
+            avatar: "https://i.imgur.com/twYrpay.jpg"
+          }
+        }
+      },
+      {
+        id: 5,
+        time: "4pm"
+      }
+    ],
     
   });
 
@@ -59,7 +59,6 @@ export default function UseApplicationData (props) {
       [id]: appointment
     };
 
-    // console.log(state.days[id].spots);
     const days = updateSpots(appointments, state.days);
 
     return axios.put(`/api/appointments/${id}`, {interview}).then(() => {
@@ -100,7 +99,6 @@ export default function UseApplicationData (props) {
     return spots;
   }
 
-  // setState(updateSpots);
   function updateSpots(appointments, days) {
     return days.map(day => {
         return {...day, spots: getSpotsForDay(day, appointments)}
@@ -117,9 +115,6 @@ export default function UseApplicationData (props) {
       setState(prev => ({ ...prev, days: days.data, appointments: appts.data, interviewers: interviewers.data }));
     });
   }, []);
-  // console.log(`These are sync state keys: ${Object.keys(state)}`);
-  // console.log(`Is state.days an array: ${ Array.isArray(state.days) }`);
-  // console.log(`This is state.days keys: ${Object.keys(state.days)}`);
-  // console.log(`This is state:`, state);
+
   return { state, setState, setDay, bookInterview, cancelInterview };
 }

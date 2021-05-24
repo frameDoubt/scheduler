@@ -53,8 +53,7 @@ export default function Appointment(props) {
   function close() {
     back();
   }
-  // console.log(Object.keys(props));
-  // console.log(props.interview ? props.interview : false);
+
   return (
     <article className="appointment" data-testid="appointment">
       <Header time={props.time} />
