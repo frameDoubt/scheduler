@@ -9,15 +9,4 @@ Install dependencies with `npm install`.
 ```sh
 npm start
 ```
-
-## Running Jest Test Framework
-
-```sh
-npm test
-```
-
-## Running Storybook Visual Testbed
-
-```sh
-npm run storybook
-```
+## Screenshot of Scheduler App
